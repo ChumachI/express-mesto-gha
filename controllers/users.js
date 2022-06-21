@@ -24,18 +24,17 @@ module.exports.createUser = (req, res) => {
 };
 
 module.exports.getOneUser = (req,res) => {
-  const userId = req.params.userId;
-  User.findById(userId)
-  .then(user => {
+  User.findById(req.params.userId)
+  .then(data => {
     if(data === null){
       res.status(ERROR_NOT_FOUND).send({ message: 'Пользователь по указанному _id не найден.'})
     }
     else{
-      res.status(STATUS_OK).send({data: user})
+      res.status(STATUS_OK).send({data})
     }
 
   })
-  .catch((err) => res.status(ERROR_BAD_REQUEST).send({ message: 'Пользователь по указанному _id не найден.' }));
+  .catch((err) => res.status(ERROR_BAD_REQUEST).send({ message: 'Пользователь по указанному _id не найден.'}));
 }
 
 
