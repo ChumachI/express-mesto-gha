@@ -33,21 +33,26 @@ module.exports.getAllCards = (req, res) => {
 };
 
 module.exports.deleteCard = (req, res) => {
-  const owner = req.user._id;
-  const { cardId } = req.body;
-  Card.findOneAndRemove({ cardId })
-    .then((cards) => {
-      res.status(STATUS_OK).send({ data: cards });
+  const cardId = req.params.cardId;
+  Card.findByIdAndRemove(cardId)
+    .then((card) => {
+      if (card === null) {
+        res
+          .status(ERROR_NOT_FOUND)
+          .send({ message: "Карточка с указанным _id не найдена." });
+      }else {
+        res.status(STATUS_OK).send({ data: card });
+      }
+
     })
     .catch(() =>
-      res
-        .status(ERROR_NOT_FOUND)
-        .send({ message: "Карточка с указанным _id не найдена." })
+      res.status(ERROR_BAD_REQUEST).send({
+        message: "Передан некорректный _id карточки.",
+      })
     );
 };
 
 module.exports.likeCard = (req, res) => {
-
   const cardId = req.params.cardId;
   Card.findById(cardId)
     .then(() => {
@@ -56,23 +61,20 @@ module.exports.likeCard = (req, res) => {
         { $addToSet: { likes: req.user._id } },
         { new: true }
       ).then((card) => {
-        if(card===null){
-          res.status(ERROR_NOT_FOUND).send({ message: "Карточка с указанным _id не найдена." });
+        if (card === null) {
+          res
+            .status(ERROR_NOT_FOUND)
+            .send({ message: "Карточка с указанным _id не найдена." });
         } else {
           res.status(STATUS_OK).send({ data: card });
         }
-
       });
     })
     .catch((err) =>
-      res
-        .status(ERROR_BAD_REQUEST)
-        .send({
-          message:
-            "Передан некорректный _id карточки.",
-        })
+      res.status(ERROR_BAD_REQUEST).send({
+        message: "Передан некорректный _id карточки.",
+      })
     );
-
 };
 
 module.exports.dislikeCard = (req, res) => {
@@ -84,20 +86,18 @@ module.exports.dislikeCard = (req, res) => {
         { $pull: { likes: req.user._id } },
         { new: true }
       ).then((card) => {
-        if(card===null){
-          res.status(ERROR_NOT_FOUND).send({ message: "Карточка с указанным _id не найдена." });
+        if (card === null) {
+          res
+            .status(ERROR_NOT_FOUND)
+            .send({ message: "Карточка с указанным _id не найдена." });
         } else {
           res.status(STATUS_OK).send({ data: card });
         }
-
       });
     })
     .catch((err) =>
-      res
-        .status(ERROR_BAD_REQUEST)
-        .send({
-          message:
-            "Передан некорректный _id карточки.",
-        })
+      res.status(ERROR_BAD_REQUEST).send({
+        message: "Передан некорректный _id карточки.",
+      })
     );
 };
