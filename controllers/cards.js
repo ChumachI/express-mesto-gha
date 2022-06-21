@@ -40,10 +40,9 @@ module.exports.deleteCard = (req, res) => {
         res
           .status(ERROR_NOT_FOUND)
           .send({ message: "Карточка с указанным _id не найдена." });
-      }else {
+      } else {
         res.status(STATUS_OK).send({ data: card });
       }
-
     })
     .catch(() =>
       res.status(ERROR_BAD_REQUEST).send({
