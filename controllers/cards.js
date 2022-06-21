@@ -1,4 +1,4 @@
-const Card = require("../models/card");
+const Card = require('../models/card');
 const {
   STATUS_OK,
   STATUS_CREATED,
@@ -10,9 +10,10 @@ const {
 module.exports.createCard = (req, res) => {
   const owner = req.user._id;
   const { name, link } = req.body;
-if(!owner || !name || !link){
-  res.status(ERROR_BAD_REQUEST).send({message: 'Переданы некорректные данные при создании карточки.'})
-}
+  if(!owner || !name || !link){
+    res.status(ERROR_BAD_REQUEST).send({message: 'Переданы некорректные данные при создании карточки.'})
+    return;
+  }
 
   Card.create({ name, link, owner })
     .then((card) => {
@@ -20,7 +21,7 @@ if(!owner || !name || !link){
     })
     .catch(() =>
       res
-        .status(ERROR_SERVER)
+        .status(ERROR_SERVER).send('На сервере произошла ошибка')
     );
 };
 
@@ -30,7 +31,7 @@ module.exports.getAllCards = (req, res) => {
       res.status(STATUS_OK).send({ data: cards });
     })
     .catch(() =>
-      res.status(ERROR_SERVER)
+      res.status(ERROR_SERVER).send('На сервере произошла ошибка')
     );
 };
 

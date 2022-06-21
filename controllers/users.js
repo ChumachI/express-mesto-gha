@@ -24,7 +24,7 @@ module.exports.createUser = (req, res) => {
 };
 
 module.exports.getOneUser = (req,res) => {
-  const {userId} = req.body;
+  const userId = req.params.userId;
   User.findById(userId)
   .then(user => {
     res.status(STATUS_OK).send({data: user})
