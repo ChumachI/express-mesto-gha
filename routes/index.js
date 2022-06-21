@@ -2,12 +2,12 @@ const router = require('express').Router();
 
 const cardsRouter = require('./card.js');
 const usersRouter = require('./user.js');
-const not_found = require('./not-found');
+const notFound = require('./not-found.js');
 
 router.use(
   usersRouter,
   cardsRouter,
-  not_found
+  notFound
 );
 
 module.exports = router;
