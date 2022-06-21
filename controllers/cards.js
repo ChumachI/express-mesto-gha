@@ -10,7 +10,7 @@ const {
 module.exports.createCard = (req, res) => {
   const owner = req.user._id;
   const { name, link } = req.body;
-  if(!owner || !name || !link){
+  if(!owner || !name || !link || name.length<2 || name.length>30){
     res.status(ERROR_BAD_REQUEST).send({message: 'Переданы некорректные данные при создании карточки.'})
     return;
   }
