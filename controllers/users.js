@@ -71,7 +71,7 @@ module.exports.updateMyInfo = (req, res) => {
   const userId = req.user._id;
   const { name, about } = req.body;
 
-  User.findByIdAndUpdate(userId, { name, about }, { new: true })
+  User.findByIdAndUpdate(userId, { name, about }, { new: true, runValidators: true })
     .then((data) => {
       if (data === null) {
         res
@@ -102,7 +102,7 @@ module.exports.updateMyInfo = (req, res) => {
 module.exports.updateMyAvatar = (req, res) => {
   const userId = req.user._id;
   const { avatar } = req.body;
-  User.findByIdAndUpdate(userId, { avatar }, { new: true })
+  User.findByIdAndUpdate(userId, { avatar }, { new: true, runValidators: true })
     .then((data) => {
       if (data === null) {
         res
