@@ -9,8 +9,6 @@ const router = require('./routes/index');
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
   runValidators: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
 });
 
 app.use(bodyParser.json());
