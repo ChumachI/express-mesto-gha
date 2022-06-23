@@ -8,7 +8,7 @@ const router = require('./routes/index');
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
-  //runValidators: true, // добавляю по вашей просьбе, однако в моей версии мангуста данный параметр не поддерживается и сервер падает соответственно не могу пройти автотесты
+  runValidators: true,
 });
 
 app.use(bodyParser.json());

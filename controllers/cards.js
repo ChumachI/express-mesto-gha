@@ -50,12 +50,12 @@ module.exports.deleteCard = (req, res) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         res
-          .status(ERROR_NOT_FOUND)
+          .status(ERROR_BAD_REQUEST)
           .send({ message: 'Карточка с указанным _id не найдена.' });
       } else if (err.name === 'CastError') {
         res
-          .status(ERROR_NOT_FOUND)
-          .send('Карточка с указанным _id не найдена.');
+          .status(ERROR_BAD_REQUEST)
+          .send({ message: 'Карточка с указанным _id не найдена.' });
       } else {
         res
           .status(ERROR_SERVER)

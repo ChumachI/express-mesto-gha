@@ -51,12 +51,12 @@ module.exports.getOneUser = (req, res) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(ERROR_NOT_FOUND).send({
+        res.status(ERROR_BAD_REQUEST).send({
           message: 'Пользователь по указанному _id не найден.',
         });
       }
       if (err.name === 'CastError') {
-        res.status(ERROR_NOT_FOUND).send({
+        res.status(ERROR_BAD_REQUEST).send({
           message: 'Пользователь по указанному _id не найден.',
         });
       } else {
