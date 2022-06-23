@@ -7,7 +7,6 @@ const app = express();
 const router = require('./routes/index');
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
-  runValidators: true,
 });
 
 app.use(bodyParser.json());
