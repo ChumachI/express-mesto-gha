@@ -22,8 +22,9 @@ module.exports.createCard = (req, res) => {
           .send({
             message: 'Переданы некорректные данные при создании карточки.',
           });
+      } else {
+        res.status(ERROR_SERVER).send({ message: 'На сервере произошла ошибка' });
       }
-      res.status(ERROR_SERVER).send({ message: 'На сервере произошла ошибка' });
     });
 };
 
@@ -48,14 +49,10 @@ module.exports.deleteCard = (req, res) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err.name === 'CastError') {
         res
           .status(ERROR_BAD_REQUEST)
-          .send({ message: 'Карточка с указанным _id не найдена.' });
-      } else if (err.name === 'CastError') {
-        res
-          .status(ERROR_BAD_REQUEST)
-          .send({ message: 'Карточка с указанным _id не найдена.' });
+          .send({ message: 'Переданы некорректные данные для удаления карточки.' });
       } else {
         res
           .status(ERROR_SERVER)
@@ -81,14 +78,7 @@ module.exports.likeCard = (req, res) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        res
-          .status(ERROR_BAD_REQUEST)
-          .send({
-            message:
-              'Переданы некорректные данные для постановки/снятии лайка.',
-          });
-      } else if (err.name === 'CastError') {
+      if (err.name === 'CastError') {
         res
           .status(ERROR_BAD_REQUEST)
           .send({
@@ -120,14 +110,7 @@ module.exports.dislikeCard = (req, res) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        res
-          .status(ERROR_BAD_REQUEST)
-          .send({
-            message:
-              'Переданы некорректные данные для постановки/снятии лайка.',
-          });
-      } else if (err.name === 'CastError') {
+      if (err.name === 'CastError') {
         res
           .status(ERROR_BAD_REQUEST)
           .send({
