@@ -4,19 +4,19 @@ const UnauthorizedError = require('../errors/UnauthorizedError');
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    next(new UnauthorizedError('Необходима авторизация'));
-    return;
+    const err = new UnauthorizedError('Необходима авторизация');
+    next(err);
   }
   const token = authorization.replace('Bearer ', '');
-  let payload;
+  let playload;
   try {
-    payload = jwt.verify(token, 'some-secret-key');
+    playload = jwt.verify(token, 'some-secret-key');
   } catch (e) {
     const err = new UnauthorizedError('Необходима авторизация');
 
     next(err);
   }
-  req.user = payload;
+  req.user = playload;
 
   next();
 };
