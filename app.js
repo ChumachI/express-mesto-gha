@@ -7,7 +7,9 @@ const { errors } = require('celebrate');
 const app = express();
 const router = require('./routes/index');
 
-mongoose.connect('mongodb://localhost:27017/mestodb');
+mongoose.connect('mongodb://localhost:27017/mestodb', {
+  useNewUrlParser: true,
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
