@@ -5,9 +5,9 @@ const usersRouter = require('./user');
 const notFound = require('./not-found');
 
 router.use(
+  notFound,
   usersRouter,
   cardsRouter,
-  notFound,
 );
 
 module.exports = router;

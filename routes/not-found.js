@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const { ERROR_NOT_FOUND } = require('../utils/constants');
+const NotFoundError = require('../errors/NotFoundError');
 
-router.all('*', (req, res) => {
-  res.status(ERROR_NOT_FOUND).send({ message: 'Страница не найдена' });
+router.all('*', () => {
+  throw new NotFoundError('Страница не найдена');
 });
 
 module.exports = router;
