@@ -40,7 +40,9 @@ module.exports.createUser = (req, res, next) => {
             _id, email, name, about, avatar,
           });
         })
-        .catch(next);
+        .catch(() => {
+          next(new ConflictError('Пользователь с таким email уже зарегистрирован'));
+        });
     });
 };
 
