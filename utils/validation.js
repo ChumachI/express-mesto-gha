@@ -11,7 +11,7 @@ const checkUser = celebrate({
 });
 
 const checkUserId = celebrate({
-  body: Joi.object().keys({
+  params: Joi.object().keys({
     userId: Joi.string().required().regex(/^[0-9a-fA-F]{24}$/),
   }),
 });
