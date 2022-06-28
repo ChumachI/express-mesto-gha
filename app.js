@@ -16,12 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 app.use(errors());
 app.use((err, req, res, next) => {
-  let { statusCode = 500, message } = err;
-  if (err.name === 'CastError') {
-    statusCode = 400;
-    message = 'Переданы не корректные данные';
-  }
-  const errorMessage = statusCode === 500 ? 'На сервере произошла ошибка' : message;
+  const { statusCode = 500, message } = err;
+  const errorMessage = statusCode === 500 ? 'На сервере произошла ошибка' + `${err.stack}` : message;
   res.status(statusCode).send({ message: errorMessage });
   next();
 });

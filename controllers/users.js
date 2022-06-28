@@ -107,7 +107,7 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.getMyInfo = (req, res, next) => {
-  User.findOne({ _id: req.user._id })
+  User.findById(req.user._id)
     .then((user) => {
       res.send({ user });
     })

@@ -10,9 +10,9 @@ const checkUser = celebrate({
   }),
 });
 
-const checkProfile = celebrate({
+const checkUserId = celebrate({
   body: Joi.object().keys({
-    userId: Joi.string().min(24).max(24),
+    userId: Joi.string().required().regex(/^[0-9a-fA-F]{24}$/),
   }),
 });
 
@@ -42,5 +42,5 @@ const checkDeletedCardId = celebrate({
 });
 
 module.exports = {
-  checkUser, checkProfile, checkAvatar, checkNewCard, checkCardId, checkDeletedCardId,
+  checkUser, checkUserId, checkAvatar, checkNewCard, checkCardId, checkDeletedCardId,
 };
