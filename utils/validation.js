@@ -24,12 +24,6 @@ const checkUserId = celebrate({
   }),
 });
 
-const checkAvatar = celebrate({
-  body: Joi.object().keys({
-    avatar: Joi.string().required().pattern(/^https?:\/\/(www.)?[\w-._~:/?#[\]@!$&'()*+,;=]+#?\b/),
-  }),
-});
-
 const checkNewCard = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
@@ -43,12 +37,6 @@ const checkCardId = celebrate({
   }),
 });
 
-const checkDeletedCardId = celebrate({
-  params: Joi.object().keys({
-    id: Joi.string().alphanum().length(24),
-  }),
-});
-
 module.exports = {
-  checkUser, checkUserId, checkAvatar, checkNewCard, checkCardId, checkDeletedCardId, checkUserData,
+  checkUser, checkUserId, checkNewCard, checkCardId, checkUserData,
 };

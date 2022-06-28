@@ -4,7 +4,7 @@ const {
 } = require('../controllers/cards');
 const auth = require('../middlewares/auth');
 const {
-  checkNewCard, checkCardId, checkDeletedCardId,
+  checkNewCard, checkCardId,
 } = require('../utils/validation');
 
 router.get('/cards', auth, getAllCards);
