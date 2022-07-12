@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
-const cors = require('cors');
+const cors = require('./middlewares/cors');
 
 const app = express();
 const router = require('./routes/index');
@@ -11,12 +11,10 @@ const router = require('./routes/index');
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
-app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.options('*', cors());
+app.use(cors);
 app.use(router);
 app.use(errors());
 app.use((err, req, res, next) => {
