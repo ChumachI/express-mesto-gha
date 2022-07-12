@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const cors = require('cors');
-const corsConfig = require('./utils/corsConfig');
 
 const app = express();
 const router = require('./routes/index');
@@ -15,7 +14,9 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+  'Access-Control-Allow-Origin': '*',
+}));
 app.use(router);
 app.use(errors());
 app.use((err, req, res, next) => {
