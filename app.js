@@ -12,9 +12,6 @@ const router = require('./routes/index');
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
   origin(origin, callback) {
     if (!origin) return callback(null, true);
@@ -26,6 +23,10 @@ app.use(cors({
     return callback(null, true);
   },
 }));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.options('*', cors());
 app.use(router);
 app.use(errors());
