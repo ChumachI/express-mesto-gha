@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
   try {
     playload = jwt.verify(token, 'some-secret-key');
   } catch (e) {
-    const err = new UnauthorizedError('Необходима авторизация' + `${authorization}`);
+    const err = new UnauthorizedError('Необходима авторизация');
 
     next(err);
   }
