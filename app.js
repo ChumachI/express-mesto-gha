@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
-const cors = require('./middlewares/cors');
+const cors = require('cors');
 
 const app = express();
 const router = require('./routes/index');
@@ -11,10 +11,18 @@ const router = require('./routes/index');
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
+const allowedCors = [
+  'https://mesto.ilya.chumak.nomoredomains.xyz',
+  'http://mesto.ilya.chumak.nomoredomains.xyz',
+  'localhost:3000',
+];
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors);
+app.use(cors({
+  origin: allowedCors,
+  credentials: true,
+}));
 app.use(router);
 app.use(errors());
 app.use((err, req, res, next) => {
